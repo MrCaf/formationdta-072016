@@ -21,9 +21,9 @@ public class AjouterPizzaAction extends Action {
 		double prix = helper.getScanner().nextDouble();
 		// creation de la nouvelle pizza
 		Pizza nouvellePizza = new Pizza(code, nom, prix);
-		helper.getStockage().savePizza(nouvellePizza);
+		helper.getStockagePizza().save(nouvellePizza);
 
-		System.out.println("Pizza ajouter avec succes" + "\n");
+		System.out.println("Pizza ajoutée avec succes" + "\n");
 
 	}
 

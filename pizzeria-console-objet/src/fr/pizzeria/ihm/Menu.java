@@ -16,6 +16,13 @@ public class Menu {
 		this.actions.put(2, new AjouterPizzaAction(helper));
 		this.actions.put(3, new ModifierPizzaAction(helper));
 		this.actions.put(4, new SupprimerPizzaAction(helper));
+		this.actions.put(5, new ListerClientAction(helper));
+		this.actions.put(6, new AjouterClientAction(helper));
+		this.actions.put(7, new CrediterClientAction(helper));
+		this.actions.put(8, new DebiterClientAction(helper));
+		this.actions.put(9, new ListerLivreurAction(helper));
+		this.actions.put(10, new AfficherCompteStatAction(helper));
+		this.actions.put(11, new VirementClientAction(helper));
 
 		this.ihmHelper = helper;
 	}
@@ -29,7 +36,7 @@ public class Menu {
 	}
 
 	public void affichageM() {
-		System.out.println("***** Pizzeria Administration *****");
+		System.out.println("\n***********************************\n***** Pizzeria Administration *****\n***********************************\n");
 
 		for (Integer numero : actions.keySet()) {
 			Action ActionEnCours = actions.get(numero);

@@ -5,9 +5,10 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import fr.pizzeria.exception.SaisieCodeException;
+import fr.pizzeria.model.Client;
 import fr.pizzeria.model.Pizza;
 
-public class StockageTableau implements Stockage {
+public class StockageTableau implements Stockage<Pizza, String> {
 
 	public Map<String, Pizza> pizzas = new TreeMap<>();
 
@@ -24,12 +25,17 @@ public class StockageTableau implements Stockage {
 	}
 
 	@Override
-	public Collection<Pizza> trouverPizza() {
+	public Collection<Pizza> findAll() {
 		return pizzas.values();
 	}
 
 	@Override
-	public void savePizza(Pizza newPizza) {
+	public Pizza find(String code) {
+		return pizzas.get(code);
+	}
+
+	@Override
+	public void save(Pizza newPizza) {
 		this.pizzas.put(newPizza.getCode(), newPizza);
 	}
 
@@ -41,21 +47,16 @@ public class StockageTableau implements Stockage {
 	}
 
 	@Override
-	public void updatePizza(Pizza editPizza, String ancienCode) {
-		this.pizzas.remove(ancienCode);
-		this.pizzas.put(editPizza.getCode(), editPizza);
+	public void update(Pizza editPizza, String ancienCode) {
+		Pizza item = this.pizzas.get(ancienCode);
+		item.setCode(editPizza.getCode());
+		item.setNom(editPizza.getNom());
+		item.setPrix(editPizza.getPrix());
 
 	}
 
 	@Override
-	public void suppPizza(String ancienCode) {
+	public void delete(String ancienCode) {
 		this.pizzas.remove(ancienCode);
 	}
-
-	@Override
-	public void savePizza(String code, String nom) {
-		// TODO Auto-generated method stub
-
-	}
-
 }
