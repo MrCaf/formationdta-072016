@@ -3,6 +3,7 @@ package fr.pizzeria.ihm;
 import java.awt.List;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 import fr.pizzeria.model.AbstractPersonne;
 import fr.pizzeria.model.Client;
@@ -35,6 +36,16 @@ public class AfficherCompteStatAction extends Action {
 		personne.addAll(clients);	// on ajoute tous les clients à la liste personne
 		personne.addAll(livreurs);	// on ajoute tous les livreurs à la liste personne
 		
+		////////////////////////////////////////
+		// utilisation des expressions lambda //
+		////////////////////////////////////////
+		nbComptes = (int) personne.stream().count();
+		totalSolde = personne.stream().map(t -> t.getSolde()).reduce((t1, t2) -> t1+t2).get().doubleValue();
+		moySolde = personne.stream().collect(Collectors.averagingDouble(CompteStat::getSolde));
+		minSolde = personne.stream().min((c1, c2) -> Double.compare(c1.getSolde(),c2.getSolde())).get().getSolde();
+		maxSolde = personne.stream().max((c1, c2) -> Double.compare(c1.getSolde(),c2.getSolde())).get().getSolde();
+		
+		/* Remplacé par les expressions lambda
 		// on parcourt la liste de personnes pour calculer toutes les statistiques
 		for (CompteStat personneEnCours : personne ) {
 			totalSolde +=  personneEnCours.getSolde(); // on ajoute le solde du personneEnCours au total
@@ -59,6 +70,7 @@ public class AfficherCompteStatAction extends Action {
 		// à la fin du parcourt, on  récupère la taille de la liste et on calcule la moyenne
 		nbComptes = personne.size();
 		moySolde = totalSolde / nbComptes;
+		*/
 		
 		// on affiche les statistiques !!!
 		System.out.println("Nombre de comptes = " + nbComptes);

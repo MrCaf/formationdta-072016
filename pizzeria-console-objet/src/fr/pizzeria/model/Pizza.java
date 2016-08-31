@@ -38,5 +38,9 @@ public class Pizza {
 		this.nom = nom;
 		this.prix = prix;
 	}
+	
+	public String toString() {
+		return this.getCode() + " " + this.getNom() + " " + this.getPrix() + " €";
+	}
 
 }

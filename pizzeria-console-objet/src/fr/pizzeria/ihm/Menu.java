@@ -38,12 +38,21 @@ public class Menu {
 	public void affichageM() {
 		System.out.println("\n***********************************\n***** Pizzeria Administration *****\n***********************************\n");
 
+		
+		////////////////////////////////////////
+		// utilisation des expressions lambda //
+		////////////////////////////////////////
+		actions.forEach((numero, valeur) -> {
+			Action ActionEnCours = valeur;
+			String libelleAction = ActionEnCours.getLibelle();
+			System.out.println(numero + " " + libelleAction);			
+		});
+		/*
 		for (Integer numero : actions.keySet()) {
 			Action ActionEnCours = actions.get(numero);
 			String libelleAction = ActionEnCours.getLibelle();
 			System.out.println(numero + " " + libelleAction);
-
-		}
+		}*/
 		System.out.println(CHOIX_SORTIR + ". Quitter" + "\n");
 	}
 
