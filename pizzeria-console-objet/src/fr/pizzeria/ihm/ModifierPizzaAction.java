@@ -1,5 +1,6 @@
 package fr.pizzeria.ihm;
 
+import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
 
 public class ModifierPizzaAction extends Action {
@@ -19,7 +20,10 @@ public class ModifierPizzaAction extends Action {
 		String nom = helper.getScanner().next();
 		System.out.println("Veuillez saisir le nouveau prix de la pizza");
 		double prix = helper.getScanner().nextDouble();
-		Pizza nouvellePizza = new Pizza(code, nom, prix);
+		System.out.println("Veuillez saisir la nouvelle catégorie de la pizza (Viande / Poisson / Sans Viande)");
+		String nameCat = helper.getScanner().next();
+		CategoriePizza cat = CategoriePizza.valueOf(nameCat);
+		Pizza nouvellePizza = new Pizza(code, nom, prix, cat);
 		helper.getStockagePizza().update(nouvellePizza, ancienCode);
 
 		System.out.println("Pizza modifiée avec succes \n");

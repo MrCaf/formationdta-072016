@@ -5,24 +5,20 @@ import java.util.Collection;
 import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
 
-public class ListerPizzaAction extends Action {
+public class ListerPizzaTriAction extends Action {
 
-	public ListerPizzaAction(IhmHelper helper) {
-		super("Lister les pizzas", helper);
+	public ListerPizzaTriAction(IhmHelper helper) {
+		super("Lister les pizzas par catégorie", helper);
 	}
 
 	public void execute() {
-		System.out.println("**** Liste de Pizzas ****");
+		System.out.println("**** Liste de Pizzas par catégories ****");
 		Collection<Pizza> pizzas = this.helper.getStockagePizza().findAll();
 		
 		////////////////////////////////////////
 		// utilisation des expressions lambda //
 		////////////////////////////////////////
-		pizzas.forEach(System.out::println);
-		/*
-		for (Pizza pizzaEnCours : pizzas) {
-			System.out.println(pizzaEnCours.getCode() + " " + pizzaEnCours.getNom() + " " + pizzaEnCours.getPrix());
-		}*/
+		pizzas.stream().sorted((p1, p2) -> Integer.compare(p1.getCatPizza().ordinal(), p2.getCatPizza().ordinal())).forEach(System.out::println);
 		System.out.println("\n");
 	}
 

@@ -1,5 +1,10 @@
 package fr.pizzeria.ihm;
 
+import java.util.Arrays;
+
+import com.sun.xml.internal.ws.server.sei.ValueGetter;
+
+import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
 
 public class AjouterPizzaAction extends Action {
@@ -19,8 +24,12 @@ public class AjouterPizzaAction extends Action {
 		String nom = helper.getScanner().next();
 		System.out.println("Veuillez saisir le prix de la pizza");
 		double prix = helper.getScanner().nextDouble();
+		System.out.println("Veuillez saisir la catégorie de la pizza");
+		Arrays.asList(CategoriePizza.values()).forEach(System.out::println);
+		String nameCat = helper.getScanner().next();
+		CategoriePizza cat = CategoriePizza.valueOf(nameCat);
 		// creation de la nouvelle pizza
-		Pizza nouvellePizza = new Pizza(code, nom, prix);
+		Pizza nouvellePizza = new Pizza(code, nom, prix, cat);
 		helper.getStockagePizza().save(nouvellePizza);
 
 		System.out.println("Pizza ajoutée avec succes" + "\n");

@@ -7,6 +7,15 @@ public class Pizza {
 	private String code;
 	private String nom;
 	private double prix;
+	private CategoriePizza catPizza;
+
+	public CategoriePizza getCatPizza() {
+		return catPizza;
+	}
+
+	public void setCatPizza(CategoriePizza catPizza) {
+		this.catPizza = catPizza;
+	}
 
 	public String getCode() {
 		return code;
@@ -32,15 +41,16 @@ public class Pizza {
 		this.prix = prix;
 	}
 
-	public Pizza(String code, String nom, double prix) {
+	public Pizza(String code, String nom, double prix, CategoriePizza catPizza) {
 		super();
 		this.code = code;
 		this.nom = nom;
 		this.prix = prix;
+		this.catPizza = catPizza;
 	}
 	
 	public String toString() {
-		return this.getCode() + " " + this.getNom() + " " + this.getPrix() + " €";
+		return this.getCode() + " " + this.getNom() + " " + this.getPrix() + " € " + this.getCatPizza().name();
 	}
 
 }

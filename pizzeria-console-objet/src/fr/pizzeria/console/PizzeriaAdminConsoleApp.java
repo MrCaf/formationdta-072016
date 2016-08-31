@@ -10,6 +10,7 @@ import fr.pizzeria.model.Pizza;
 import fr.pizzeria.service.Stockage;
 import fr.pizzeria.service.StockageClient;
 import fr.pizzeria.service.StockageLivreur;
+import fr.pizzeria.service.StockagePizzaFichier;
 import fr.pizzeria.service.StockageTableau;
 
 public class PizzeriaAdminConsoleApp {
@@ -18,7 +19,8 @@ public class PizzeriaAdminConsoleApp {
 
 		Scanner scanner = new Scanner(System.in);
 
-		Stockage<Pizza, String> stockagePizza = new StockageTableau();
+		Stockage<Pizza, String> stockagePizza = new StockagePizzaFichier();
+		//Stockage<Pizza, String> stockagePizza = new StockageTableau();
 		Stockage<Client, Integer> stockageClient = new StockageClient();
 		Stockage<Livreur, Integer> stockageLivreur = new StockageLivreur();
 
