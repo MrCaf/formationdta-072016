@@ -1,7 +1,12 @@
 package fr.pizzeria.ihm;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import org.reflections.Reflections;
 
 import fr.pizzeria.exception.SaisieEntierException;
 
@@ -12,6 +17,7 @@ public class Menu {
 	private IhmHelper ihmHelper;
 
 	public Menu(IhmHelper helper) {
+		/*
 		this.actions.put(1, new ListerPizzaAction(helper));
 		this.actions.put(2, new ListerPizzaTriAction(helper));
 		this.actions.put(3, new AfficherPizzaChereAction(helper));
@@ -26,7 +32,22 @@ public class Menu {
 		this.actions.put(12, new AfficherCompteStatAction(helper));
 		this.actions.put(13, new VirementClientAction(helper));
 		this.actions.put(14, new StockerPizzaAction(helper));
-
+		*/
+		
+		Reflections reflections = new Reflections();
+		//Set<Class<? extends Action>> subTypes = reflections.getSubTypesOf(Action.class);
+		Set<Class<?>> annotated = reflections.getTypesAnnotatedWith(Act.class);
+		AtomicInteger index = new AtomicInteger(0);
+		annotated.forEach(l -> {
+			try {
+				this.actions.put(index.incrementAndGet(), (Action) l.getConstructor(IhmHelper.class).newInstance(helper));
+			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+					| InvocationTargetException | NoSuchMethodException | SecurityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
+		
 		this.ihmHelper = helper;
 	}
 

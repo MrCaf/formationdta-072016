@@ -1,12 +1,10 @@
 package fr.pizzeria.ihm;
 
 import java.util.Arrays;
-
-import com.sun.xml.internal.ws.server.sei.ValueGetter;
-
 import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
 
+@Act
 public class AjouterPizzaAction extends Action {
 
 	public AjouterPizzaAction(IhmHelper helper) {

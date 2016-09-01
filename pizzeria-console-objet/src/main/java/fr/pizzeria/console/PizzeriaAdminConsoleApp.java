@@ -1,6 +1,9 @@
 package fr.pizzeria.console;
 
+import java.util.Calendar;
 import java.util.Scanner;
+
+import org.apache.commons.lang3.time.DateFormatUtils;
 
 import fr.pizzeria.ihm.IhmHelper;
 import fr.pizzeria.ihm.Menu;
@@ -11,7 +14,6 @@ import fr.pizzeria.service.Stockage;
 import fr.pizzeria.service.StockageClient;
 import fr.pizzeria.service.StockageLivreur;
 import fr.pizzeria.service.StockagePizzaFichier;
-import fr.pizzeria.service.StockageTableau;
 
 public class PizzeriaAdminConsoleApp {
 
@@ -30,6 +32,8 @@ public class PizzeriaAdminConsoleApp {
 
 		Menu listMenu = new Menu(helper);
 
+		System.out.println(DateFormatUtils.format(Calendar.getInstance(), "dd/MM - HH:mm"));
+		
 		listMenu.start();
 
 		scanner.close();

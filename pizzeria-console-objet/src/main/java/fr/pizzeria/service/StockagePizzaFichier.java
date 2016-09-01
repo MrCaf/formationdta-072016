@@ -19,7 +19,7 @@ public class StockagePizzaFichier implements Stockage<Pizza, String> {
 	public Map<String, Pizza> pizzas = new TreeMap<>();
 
 	public StockagePizzaFichier() {
-
+		findAll();
 	}
 
 	@Override
@@ -53,11 +53,13 @@ public class StockagePizzaFichier implements Stockage<Pizza, String> {
 
 	@Override
 	public void save(Pizza newPizza) {
+		this.pizzas.put(newPizza.getCode(), newPizza);
 		// sauvegarder des pizzas dans des fichiers
 		// génération du chemin
 		Path cheminFichier = Paths.get("src","data",newPizza.getCode() + ".txt");
         try {
         	// création et écriture dans le fichier
+        	Files.deleteIfExists(cheminFichier);
         	Files.createFile(cheminFichier);
 			Files.write(cheminFichier, Arrays.asList(newPizza.getNom() + ";" + newPizza.getPrix() + ";" + newPizza.getCatPizza()));
 		} catch (IOException e) {
@@ -75,11 +77,18 @@ public class StockagePizzaFichier implements Stockage<Pizza, String> {
 		item.setCode(editPizza.getCode());
 		item.setNom(editPizza.getNom());
 		item.setPrix(editPizza.getPrix());
-
+		this.save(item);
 	}
 
 	@Override
 	public void delete(String ancienCode) {
 		this.pizzas.remove(ancienCode);
+		Path cheminFichier = Paths.get("src","data",ancienCode + ".txt");
+        try {
+        	// suppression
+        	Files.deleteIfExists(cheminFichier);
+		} catch (IOException e) {
+			System.err.println("Export rejeté pour " + ancienCode);
+		}
 	}
 }

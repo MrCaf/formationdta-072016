@@ -2,6 +2,7 @@ package fr.pizzeria.ihm;
 
 import fr.pizzeria.exception.DebitException;
 
+@Act
 public class DebiterClientAction extends Action {
 
 

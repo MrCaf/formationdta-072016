@@ -1,10 +1,8 @@
 package fr.pizzeria.ihm;
 
-import java.util.Collection;
-
 import fr.pizzeria.exception.CreditException;
-import fr.pizzeria.model.Client;
 
+@Act
 public class CrediterClientAction extends Action {
 	
 

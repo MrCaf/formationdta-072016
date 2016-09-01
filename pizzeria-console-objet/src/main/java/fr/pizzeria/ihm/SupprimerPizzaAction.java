@@ -1,5 +1,6 @@
 package fr.pizzeria.ihm;
 
+@Act
 public class SupprimerPizzaAction extends Action {
 
 	public SupprimerPizzaAction(IhmHelper helper) {

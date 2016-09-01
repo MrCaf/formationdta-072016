@@ -2,9 +2,9 @@ package fr.pizzeria.ihm;
 
 import java.util.Collection;
 
-import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
 
+@Act
 public class AfficherPizzaChereAction extends Action {
 
 	public AfficherPizzaChereAction(IhmHelper helper) {

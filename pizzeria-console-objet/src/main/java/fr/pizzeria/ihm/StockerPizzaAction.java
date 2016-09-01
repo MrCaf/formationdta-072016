@@ -1,13 +1,9 @@
 package fr.pizzeria.ihm;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Collection;
-
-import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
 
+@Act
 public class StockerPizzaAction extends Action {
 
 	public StockerPizzaAction(IhmHelper helper) {

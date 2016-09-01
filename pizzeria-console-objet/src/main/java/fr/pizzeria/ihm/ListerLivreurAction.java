@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import fr.pizzeria.model.Livreur;
 
+@Act
 public class ListerLivreurAction extends Action {
 
 	public ListerLivreurAction(IhmHelper helper) {
