@@ -1,11 +1,13 @@
 package fr.pizzeria.ihm;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.reflections.Reflections;
 
 import fr.pizzeria.exception.SaisieEntierException;
@@ -60,7 +62,8 @@ public class Menu {
 	}
 
 	public void affichageM() {
-		System.out.println("\n***********************************\n***** Pizzeria Administration *****\n***********************************\n");
+		System.out.println("\n***********************************\n***** Pizzeria Administration *****\n***********************************");
+		System.out.println(DateFormatUtils.format(Calendar.getInstance(), "dd/MM - HH:mm") + "\n");
 
 		
 		////////////////////////////////////////
