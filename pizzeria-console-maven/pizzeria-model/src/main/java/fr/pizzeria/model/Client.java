@@ -9,6 +9,8 @@ public class Client extends AbstractPersonne implements CompteStat{
 		super(id, nom, prenom, solde);
 	}
 	
+	blablabla n importe quoi !
+	
 	@Override
 	public void crediterCompte(double montant) throws CreditException {
 		double newSolde = this.solde + montant;
