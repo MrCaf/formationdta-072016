@@ -1,5 +1,7 @@
 package fr.pizzeria.model;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class Pizza {
 
 	private static int NbPizza;
@@ -50,7 +52,7 @@ public class Pizza {
 	}
 	
 	public String toString() {
-		return this.getCode() + " " + this.getNom() + " " + this.getPrix() + " € " + this.getCatPizza().name();
+		return StringUtils.rightPad(this.getCode(), 5)  + "\t" + StringUtils.rightPad(this.getNom(),16) + "\t\t" + this.getPrix() + " €\t" + this.getCatPizza().name();
 	}
 
 }

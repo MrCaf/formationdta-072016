@@ -1,6 +1,7 @@
 package fr.pizzeria.service;
 
 import java.util.Collection;
+import java.util.List;
 
 public interface Stockage<T, E> {
 
@@ -14,4 +15,5 @@ public interface Stockage<T, E> {
 
 	void delete(String ancienCode);
 	
+	public void importPizza(List<T> listImport);
 }

@@ -91,4 +91,9 @@ public class StockagePizzaFichier implements Stockage<Pizza, String> {
 			System.err.println("Export rejeté pour " + ancienCode);
 		}
 	}
+	
+	@Override
+	public void importPizza(List<Pizza> listImport) {
+		System.err.println("Veuillez configurer l’application avec une implémentation base de données !");
+	}
 }

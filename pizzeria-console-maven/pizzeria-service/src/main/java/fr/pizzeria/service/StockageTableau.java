@@ -1,6 +1,7 @@
 package fr.pizzeria.service;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -58,5 +59,10 @@ public class StockageTableau implements Stockage<Pizza, String> {
 	@Override
 	public void delete(String ancienCode) {
 		this.pizzas.remove(ancienCode);
+	}
+
+	@Override
+	public void importPizza(List<Pizza> listImport) {
+		System.err.println("Veuillez configurer l’application avec une implémentation base de données !");
 	}
 }

@@ -1,6 +1,7 @@
 package fr.pizzeria.service;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -45,5 +46,10 @@ public class StockageClient implements Stockage<Client, Integer> {
 	@Override
 	public void delete(String ancienCode) {
 		this.clients.remove(ancienCode);
+	}
+
+	@Override
+	public void importPizza(List<Client> listImport) {
+		
 	}
 }

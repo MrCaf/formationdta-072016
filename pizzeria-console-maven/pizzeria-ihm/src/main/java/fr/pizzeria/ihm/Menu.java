@@ -40,7 +40,7 @@ public class Menu {
 		//Set<Class<? extends Action>> subTypes = reflections.getSubTypesOf(Action.class);
 		Set<Class<?>> annotated = reflections.getTypesAnnotatedWith(Act.class);
 		AtomicInteger index = new AtomicInteger(0);
-		annotated.forEach(l -> {
+		annotated.stream().forEachOrdered(l -> {
 			try {
 				this.actions.put(index.incrementAndGet(), (Action) l.getConstructor(IhmHelper.class).newInstance(helper));
 			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException

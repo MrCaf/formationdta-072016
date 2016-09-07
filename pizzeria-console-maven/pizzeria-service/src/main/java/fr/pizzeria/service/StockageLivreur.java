@@ -1,6 +1,7 @@
 package fr.pizzeria.service;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -44,5 +45,10 @@ public class StockageLivreur implements Stockage<Livreur, Integer> {
 	@Override
 	public void delete(String ancienCode) {
 		this.livreurs.remove(ancienCode);
+	}
+
+	@Override
+	public void importPizza(List<Livreur> listImport) {
+		
 	}
 }
