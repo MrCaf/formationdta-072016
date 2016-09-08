@@ -23,35 +23,35 @@ public class StockagePizzaBDD implements Stockage<Pizza, String> {
 	public String pizzaMdp;
 
 	public StockagePizzaBDD() {
-		
+
 		// lecture des properties
 		ResourceBundle bundle = ResourceBundle.getBundle("jdbc");
 		pizzaDb = bundle.getString("pizza.db");
 		pizzaUser = bundle.getString("pizza.user");
 		pizzaMdp = bundle.getString("pizza.mdp");
-		
+
 		findAll();
 	}
 
 	@Override
 	public Collection<Pizza> findAll() {
-		try(Connection connection = DriverManager.getConnection(pizzaDb,pizzaUser,pizzaMdp);
-			PreparedStatement selectPizzaSt = connection.prepareStatement("SELECT * FROM PIZZA");
-			ResultSet resultats = selectPizzaSt.executeQuery();) {
-			
-			while(resultats.next()){
+		try (Connection connection = DriverManager.getConnection(pizzaDb, pizzaUser, pizzaMdp);
+				PreparedStatement selectPizzaSt = connection.prepareStatement("SELECT * FROM PIZZA");
+				ResultSet resultats = selectPizzaSt.executeQuery();) {
+
+			while (resultats.next()) {
 				Integer id = resultats.getInt("id");
 				String name = resultats.getString("libelle");
 				String code = resultats.getString("reference");
 				Double prix = resultats.getDouble("prix");
 				CategoriePizza catPizza = CategoriePizza.valueOf(resultats.getString("categorie"));
-				
+
 				pizzas.put(code, new Pizza(code, name, prix, catPizza));
 			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
-		
+
 		return pizzas.values();
 	}
 
@@ -62,9 +62,10 @@ public class StockagePizzaBDD implements Stockage<Pizza, String> {
 
 	@Override
 	public void save(Pizza newPizza) {
-		try(Connection connection = DriverManager.getConnection(pizzaDb,pizzaUser,pizzaMdp);
-			PreparedStatement updatePizzaSt = connection.prepareStatement("INSERT INTO pizza (libelle,reference,prix,url_image,categorie) VALUES (?,?,?,'',?)");) {
-			
+		try (Connection connection = DriverManager.getConnection(pizzaDb, pizzaUser, pizzaMdp);
+				PreparedStatement updatePizzaSt = connection.prepareStatement(
+						"INSERT INTO pizza (libelle,reference,prix,url_image,categorie) VALUES (?,?,?,'',?)");) {
+
 			updatePizzaSt.setString(1, newPizza.getNom());
 			updatePizzaSt.setString(2, newPizza.getCode());
 			updatePizzaSt.setDouble(3, newPizza.getPrix());
@@ -77,14 +78,15 @@ public class StockagePizzaBDD implements Stockage<Pizza, String> {
 	}
 
 	public void saisirCode(Pizza newPizza) throws SaisieCodeException {
-		
+
 	}
 
 	@Override
 	public void update(Pizza editPizza, String ancienCode) {
 		Pizza item = pizzas.get(ancienCode);
-		try(Connection connection = DriverManager.getConnection(pizzaDb,pizzaUser,pizzaMdp);
-			PreparedStatement updatePizzaSt = connection.prepareStatement("UPDATE pizza SET libelle = ?, reference = ?, prix = ?, categorie = ? WHERE reference = ?");) {
+		try (Connection connection = DriverManager.getConnection(pizzaDb, pizzaUser, pizzaMdp);
+				PreparedStatement updatePizzaSt = connection.prepareStatement(
+						"UPDATE pizza SET libelle = ?, reference = ?, prix = ?, categorie = ? WHERE reference = ?");) {
 
 			updatePizzaSt.setString(1, editPizza.getNom());
 			updatePizzaSt.setString(2, editPizza.getCode());
@@ -102,8 +104,9 @@ public class StockagePizzaBDD implements Stockage<Pizza, String> {
 
 	@Override
 	public void delete(String ancienCode) {
-		try(Connection connection = DriverManager.getConnection(pizzaDb,pizzaUser,pizzaMdp);
-				PreparedStatement updatePizzaSt = connection.prepareStatement("DELETE FROM pizza WHERE reference = ?");) {
+		try (Connection connection = DriverManager.getConnection(pizzaDb, pizzaUser, pizzaMdp);
+				PreparedStatement updatePizzaSt = connection
+						.prepareStatement("DELETE FROM pizza WHERE reference = ?");) {
 			updatePizzaSt.setString(1, ancienCode);
 			updatePizzaSt.executeUpdate();
 			pizzas.remove(ancienCode);
@@ -114,21 +117,29 @@ public class StockagePizzaBDD implements Stockage<Pizza, String> {
 
 	@Override
 	public void importPizza(List<Pizza> listImport) {
-		try(Connection connection = DriverManager.getConnection(pizzaDb,pizzaUser,pizzaMdp);
-			PreparedStatement updatePizzaSt = connection.prepareStatement("INSERT INTO pizza (libelle,reference,prix,url_image,categorie) VALUES (?,?,?,'',?)");) {
-				
+		try (Connection connection = DriverManager.getConnection(pizzaDb, pizzaUser, pizzaMdp);
+				PreparedStatement updatePizzaSt = connection.prepareStatement(
+						"INSERT INTO pizza (libelle,reference,prix,url_image,categorie) VALUES (?,?,?,'',?)");) {
+
 			connection.setAutoCommit(false);
-			
-			listImport.forEach(p -> {
-				updatePizzaSt.setString(1, p.getNom());
-				updatePizzaSt.setString(2, p.getCode());
-				updatePizzaSt.setDouble(3, p.getPrix());
-				updatePizzaSt.setString(4, p.getCatPizza().toString());
-				updatePizzaSt.executeUpdate();
-			});
-			
+			try {
+				for (Pizza p : listImport) {
+
+					updatePizzaSt.setString(1, p.getNom());
+					updatePizzaSt.setString(2, p.getCode());
+					updatePizzaSt.setDouble(3, p.getPrix());
+					updatePizzaSt.setString(4, p.getCatPizza().toString());
+					updatePizzaSt.executeUpdate();
+
+				}
+				connection.commit();
+			} catch (SQLException e) {
+				connection.rollback();
+				System.err.println("Import annulé !");
+				throw new RuntimeException(e);
+			}
+
 		} catch (SQLException e) {
-			connection.rollback();
 			throw new RuntimeException(e);
 		}
 	}
