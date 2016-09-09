@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.persistence.NamedQuery;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
@@ -38,8 +39,8 @@ public class StockagePizzaJPA implements Stockage<Pizza, String> {
 	public Pizza find(String code) {
 		
 		EntityManager em = emf.createEntityManager();
-		TypedQuery<Pizza> query = em.createQuery("SELECT p FROM Pizza p WHERE p.code =:codeP", Pizza.class);
-		query.setParameter("codeP", code);
+		TypedQuery<Pizza> query = em.createNamedQuery("pizza.findByCode", Pizza.class).setParameter("codeP", code);
+		//TypedQuery<Pizza> query = em.createQuery("SELECT p FROM Pizza p WHERE p.code =:codeP", Pizza.class).setParameter("codeP", code);
 		
 		Pizza p = query.getSingleResult();
 		em.close();
@@ -71,8 +72,8 @@ public class StockagePizzaJPA implements Stockage<Pizza, String> {
 		EntityTransaction et = em.getTransaction();
 		et.begin();
 
-		TypedQuery<Pizza> query = em.createQuery("SELECT p FROM Pizza p WHERE p.code =:codeP", Pizza.class);
-		query.setParameter("codeP", ancienCode);
+		TypedQuery<Pizza> query = em.createNamedQuery("pizza.findByCode", Pizza.class).setParameter("codeP", ancienCode);
+		//TypedQuery<Pizza> query = em.createQuery("SELECT p FROM Pizza p WHERE p.code =:codeP", Pizza.class).setParameter("codeP", ancienCode);
 		
 		Pizza p = query.getSingleResult();
 
@@ -94,8 +95,8 @@ public class StockagePizzaJPA implements Stockage<Pizza, String> {
 		EntityTransaction et = em.getTransaction();
 		et.begin();
 		
-		TypedQuery<Pizza> query = em.createQuery("SELECT p FROM Pizza p WHERE p.code =:codeP", Pizza.class);
-		query.setParameter("codeP", ancienCode);
+		TypedQuery<Pizza> query = em.createNamedQuery("pizza.findByCode", Pizza.class).setParameter("codeP", ancienCode);
+		//TypedQuery<Pizza> query = em.createQuery("SELECT p FROM Pizza p WHERE p.code =:codeP", Pizza.class).setParameter("codeP", ancienCode);
 		
 		Pizza p = query.getSingleResult();
 		

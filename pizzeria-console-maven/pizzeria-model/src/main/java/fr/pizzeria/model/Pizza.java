@@ -7,11 +7,13 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import org.apache.commons.lang3.StringUtils;
 
 @Entity
+@NamedQuery(name="pizza.findByCode", query="SELECT p FROM Pizza p WHERE p.code =:codeP")
 public class Pizza {
 
 	private static int NbPizza;
