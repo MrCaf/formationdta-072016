@@ -27,6 +27,7 @@ public class Pizza {
 	private double prix;
 	@Enumerated(EnumType.STRING)
 	private CategoriePizza categorie;
+	private String urlImage;
 
 	public Pizza() {
 		super();
@@ -71,15 +72,24 @@ public class Pizza {
 	public void setPrix(double prix) {
 		this.prix = prix;
 	}
+	
+	public String getUrlImage() {
+		return urlImage;
+	}
 
-	public Pizza(String code, String nom, double prix, CategoriePizza catPizza) {
+	public void setUrlImage(String urlImage) {
+		this.urlImage = urlImage;
+	}
+
+	public Pizza(String code, String nom, double prix, CategoriePizza catPizza, String urlImage) {
 		super();
 		this.code = code;
 		this.nom = nom;
 		this.prix = prix;
 		this.categorie = catPizza;
+		this.urlImage = urlImage;
 	}
-	
+
 	public String toString() {
 		return StringUtils.rightPad(this.getCode(), 5)  + "\t" + StringUtils.rightPad(this.getNom(),16) + "\t\t" + this.getPrix() + " €\t" + this.getCatPizza().name();
 	}

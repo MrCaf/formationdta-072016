@@ -1,12 +1,20 @@
 package fr.pizzeria.model;
 
+import javax.persistence.Entity;
+
 import fr.pizzeria.exception.CreditException;
 import fr.pizzeria.exception.DebitException;
 
+@Entity
 public class Client extends AbstractPersonne implements CompteStat{
 	
-	public Client(int id, String nom, String prenom, double solde) {
+	private String email;
+	private String password;
+	
+	public Client(int id, String nom, String prenom, double solde, String email, String password) {
 		super(id, nom, prenom, solde);
+		this.email = email;
+		this.password = password;
 	}
 
 	@Override

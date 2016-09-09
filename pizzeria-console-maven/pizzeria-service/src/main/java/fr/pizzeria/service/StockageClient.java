@@ -1,5 +1,8 @@
 package fr.pizzeria.service;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -13,8 +16,8 @@ public class StockageClient implements Stockage<Client, Integer> {
 
 	public StockageClient() {
 		
-		this.clients.put(12, new Client(12, "Robert", "Jules", 200.00));
-		this.clients.put(15, new Client(15, "Robert", "Hugues", 2.00));
+		this.clients.put(12, new Client(12, "Robert", "Jules", 200.00, "robert@jules.com", "password"));
+		this.clients.put(15, new Client(15, "Robert", "Hugues", 2.00, "robert@hugues.com", "password"));
 
 	}
 
@@ -52,4 +55,22 @@ public class StockageClient implements Stockage<Client, Integer> {
 	public void importPizza(List<Client> listImport) {
 		
 	}
+	
+	// fonction de cryptage
+	/*
+	public void Passe(String pass){
+        byte[] passBytes = pass.getBytes();
+        try {
+            MessageDigest algorithm = MessageDigest.getInstance("MD5");
+            algorithm.reset();
+            algorithm.update(passBytes);
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] messageDigest = md.digest(passBytes);
+            BigInteger number = new BigInteger(1, messageDigest);
+            this.code= number.toString(16);
+            } catch (NoSuchAlgorithmException e) {
+                throw new Error("invalid JRE: have not 'MD5' impl.", e);
+        }
+    }
+    */
 }

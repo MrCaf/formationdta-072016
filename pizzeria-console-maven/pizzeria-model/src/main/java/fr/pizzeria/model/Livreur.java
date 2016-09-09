@@ -1,7 +1,10 @@
 package fr.pizzeria.model;
 
+import javax.persistence.Entity;
+
 import fr.pizzeria.exception.DebitException;
 
+@Entity
 public class Livreur extends AbstractPersonne implements CompteStat{
 	
 	private double montantDecouvertAutorise;

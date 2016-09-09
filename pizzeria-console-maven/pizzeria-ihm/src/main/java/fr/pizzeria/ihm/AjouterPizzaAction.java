@@ -26,8 +26,10 @@ public class AjouterPizzaAction extends Action {
 		Arrays.asList(CategoriePizza.values()).forEach(System.out::println);
 		String nameCat = helper.getScanner().next();
 		CategoriePizza cat = CategoriePizza.valueOf(nameCat);
+		System.out.println("Veuillez saisir l'url de l'image");
+		String url = helper.getScanner().next();
 		// creation de la nouvelle pizza
-		Pizza nouvellePizza = new Pizza(code, nom, prix, cat);
+		Pizza nouvellePizza = new Pizza(code, nom, prix, cat, url);
 		helper.getStockagePizza().save(nouvellePizza);
 
 		System.out.println("Pizza ajoutée avec succes" + "\n");

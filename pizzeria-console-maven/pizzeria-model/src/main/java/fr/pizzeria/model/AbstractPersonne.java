@@ -1,10 +1,20 @@
 package fr.pizzeria.model;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.MappedSuperclass;
+
 import fr.pizzeria.exception.CreditException;
 import fr.pizzeria.exception.DebitException;
 
+@MappedSuperclass
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class AbstractPersonne {
 	
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected int id;
 	protected String nom;
 	protected String prenom;

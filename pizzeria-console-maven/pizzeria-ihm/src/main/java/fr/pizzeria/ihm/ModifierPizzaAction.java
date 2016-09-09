@@ -27,7 +27,9 @@ public class ModifierPizzaAction extends Action {
 		Arrays.asList(CategoriePizza.values()).forEach(System.out::println);
 		String nameCat = helper.getScanner().next();
 		CategoriePizza cat = CategoriePizza.valueOf(nameCat);
-		Pizza nouvellePizza = new Pizza(code, nom, prix, cat);
+		System.out.println("Veuillez saisir l'url de l'image");
+		String url = helper.getScanner().next();
+		Pizza nouvellePizza = new Pizza(code, nom, prix, cat, url);
 		helper.getStockagePizza().update(nouvellePizza, ancienCode);
 
 		System.out.println("Pizza modifiée avec succes \n");

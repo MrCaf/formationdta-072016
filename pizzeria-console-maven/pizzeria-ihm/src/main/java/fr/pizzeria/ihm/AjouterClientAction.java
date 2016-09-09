@@ -23,8 +23,12 @@ public class AjouterClientAction extends Action {
 		String prenom = helper.getScanner().next();
 		System.out.println("Veuillez saisir le solde");
 		double solde = helper.getScanner().nextDouble();
+		System.out.println("Veuillez saisir l'email");
+		String email = helper.getScanner().next();
+		System.out.println("Veuillez saisir le mot de passe");
+		String password = helper.getScanner().next();
 		// creation du nouveau client
-		Client nouveauClient = new Client(id, nom, prenom, solde);
+		Client nouveauClient = new Client(id, nom, prenom, solde, email, password);
 		helper.getStockageClient().save(nouveauClient);
 
 		System.out.println("Client ajouté avec succes" + "\n");

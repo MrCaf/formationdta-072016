@@ -36,7 +36,7 @@ public class ImporterPizzaAction extends Action {
 						// on découpe les lignes pour retrouver les informations et les enregistrer
 						List<String> attr = Arrays.asList(l.split(";"));
 						String code = p.getFileName().toString().substring(0, 3);
-						pizzas.add(new Pizza(code, attr.get(0), Float.valueOf(attr.get(1)), CategoriePizza.valueOf(attr.get(2))));
+						pizzas.add(new Pizza(code, attr.get(0), Float.valueOf(attr.get(1)), CategoriePizza.valueOf(attr.get(2)), attr.get(3)));
 					});
 				} catch (IOException f) {
 					System.err.println("Import rejeté pour " + p.getFileName());

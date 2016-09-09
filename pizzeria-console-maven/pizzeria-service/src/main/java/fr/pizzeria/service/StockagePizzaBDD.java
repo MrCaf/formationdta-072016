@@ -45,8 +45,9 @@ public class StockagePizzaBDD implements Stockage<Pizza, String> {
 				String code = resultats.getString("reference");
 				Double prix = resultats.getDouble("prix");
 				CategoriePizza catPizza = CategoriePizza.valueOf(resultats.getString("categorie"));
+				String url = resultats.getString("urlImage");
 
-				pizzas.put(code, new Pizza(code, name, prix, catPizza));
+				pizzas.put(code, new Pizza(code, name, prix, catPizza, url));
 			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
