@@ -2,16 +2,22 @@ package fr.pizzeria.service;
 
 import java.util.Collection;
 import java.util.List;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import javax.persistence.NamedQuery;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
+
+//import org.springframework.stereotype.Component;
 
 import fr.pizzeria.exception.SaisieCodeException;
 import fr.pizzeria.model.Pizza;
 
+//@StockageType @ApplicationScoped
+//@Component
 public class StockagePizzaJPA implements Stockage<Pizza, String> {
 
 	private EntityManagerFactory emf;
@@ -39,8 +45,8 @@ public class StockagePizzaJPA implements Stockage<Pizza, String> {
 	public Pizza find(String code) {
 		
 		EntityManager em = emf.createEntityManager();
-		TypedQuery<Pizza> query = em.createNamedQuery("pizza.findByCode", Pizza.class).setParameter("codeP", code);
-		//TypedQuery<Pizza> query = em.createQuery("SELECT p FROM Pizza p WHERE p.code =:codeP", Pizza.class).setParameter("codeP", code);
+		TypedQuery<Pizza> query = em.createQuery("SELECT p FROM Pizza p WHERE p.code =:codeP", Pizza.class);
+		query.setParameter("codeP", code);
 		
 		Pizza p = query.getSingleResult();
 		em.close();
@@ -72,15 +78,16 @@ public class StockagePizzaJPA implements Stockage<Pizza, String> {
 		EntityTransaction et = em.getTransaction();
 		et.begin();
 
-		TypedQuery<Pizza> query = em.createNamedQuery("pizza.findByCode", Pizza.class).setParameter("codeP", ancienCode);
-		//TypedQuery<Pizza> query = em.createQuery("SELECT p FROM Pizza p WHERE p.code =:codeP", Pizza.class).setParameter("codeP", ancienCode);
+		TypedQuery<Pizza> query = em.createQuery("SELECT p FROM Pizza p WHERE p.code =:codeP", Pizza.class);
+		query.setParameter("codeP", ancienCode);
 		
 		Pizza p = query.getSingleResult();
 
 		p.setCode(editPizza.getCode());
 		p.setNom(editPizza.getNom());
 		p.setPrix(editPizza.getPrix());
-		p.setCatPizza(editPizza.getCatPizza());
+		p.setCategorie(editPizza.getCategorie());
+		p.setUrlImage(editPizza.getUrlImage());
 		
 		em.merge(p);
 		
@@ -95,8 +102,8 @@ public class StockagePizzaJPA implements Stockage<Pizza, String> {
 		EntityTransaction et = em.getTransaction();
 		et.begin();
 		
-		TypedQuery<Pizza> query = em.createNamedQuery("pizza.findByCode", Pizza.class).setParameter("codeP", ancienCode);
-		//TypedQuery<Pizza> query = em.createQuery("SELECT p FROM Pizza p WHERE p.code =:codeP", Pizza.class).setParameter("codeP", ancienCode);
+		TypedQuery<Pizza> query = em.createQuery("SELECT p FROM Pizza p WHERE p.code =:codeP", Pizza.class);
+		query.setParameter("codeP", ancienCode);
 		
 		Pizza p = query.getSingleResult();
 		
@@ -126,7 +133,7 @@ public class StockagePizzaJPA implements Stockage<Pizza, String> {
 				connection.commit();
 			} catch (SQLException e) {
 				connection.rollback();
-				System.err.println("Import annulé !");
+				System.err.println("Import annulï¿½ !");
 				throw new RuntimeException(e);
 			}
 

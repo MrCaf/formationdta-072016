@@ -28,6 +28,10 @@ public abstract class AbstractPersonne {
 		this.solde = solde;
 	}
 	
+	public AbstractPersonne() {
+		super();
+	}
+
 	public void crediterCompte(double montant) throws CreditException {
 		double newSolde = this.solde + montant;
 		this.solde = newSolde;
@@ -39,7 +43,7 @@ public abstract class AbstractPersonne {
 	}
 	
 	public String toString() {
-		String detailPersonne = this.id + " => " + this.prenom + " " + this.nom + " (" + this.solde + " €)";
+		String detailPersonne = this.id + " => " + this.prenom + " " + this.nom + " (" + this.solde + " ï¿½)";
 		return detailPersonne;
 	}
 	

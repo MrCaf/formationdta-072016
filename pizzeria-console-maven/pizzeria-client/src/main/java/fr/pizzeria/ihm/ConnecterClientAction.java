@@ -1,5 +1,7 @@
 package fr.pizzeria.ihm;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import fr.pizzeria.model.Client;
 
 @ActConnexion
@@ -20,7 +22,7 @@ public class ConnecterClientAction extends ActionClient {
 		System.out.println("Veuillez saisir votre mot de passe");
 		String password = helper.getScanner().next();
 		// authentification
-		
+		DigestUtils
 
 		System.out.println("Client ajouté avec succes" + "\n");
 

@@ -1,10 +1,12 @@
 package fr.pizzeria.model;
 
 import javax.persistence.Entity;
+import javax.persistence.NamedQuery;
 
 import fr.pizzeria.exception.DebitException;
 
 @Entity
+@NamedQuery(name="livreur.findById", query="SELECT l FROM Livreur l WHERE l.id =:idL")
 public class Livreur extends AbstractPersonne implements CompteStat{
 	
 	private double montantDecouvertAutorise;
@@ -12,6 +14,10 @@ public class Livreur extends AbstractPersonne implements CompteStat{
 	public Livreur(int id, String nom, String prenom, double solde, double montantDecouvertAutorise) {
 		super(id, nom, prenom, solde);
 		this.montantDecouvertAutorise = montantDecouvertAutorise;
+	}
+
+	public Livreur() {
+		super();
 	}
 
 	@Override
@@ -25,7 +31,7 @@ public class Livreur extends AbstractPersonne implements CompteStat{
 
 	@Override
 	public String toString() {
-		String detailLivreur = this.id + " => " + this.prenom + " " + this.nom + " (" + this.solde + " € / " + this.montantDecouvertAutorise + " € autorisé)";
+		String detailLivreur = this.id + " => " + this.prenom + " " + this.nom + " (" + this.solde + " ï¿½ / " + this.montantDecouvertAutorise + " ï¿½ autorisï¿½)";
 		return detailLivreur;
 	}
 

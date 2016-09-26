@@ -27,6 +27,16 @@
     	<artifactId>hibernate-jpa-2.1-api</artifactId>
 	</dependency>
   	
+	<dependency>
+	    <groupId>javax.enterprise</groupId>
+	    <artifactId>cdi-api</artifactId>
+	</dependency>
+	
+	<dependency>
+	   <groupId>javax</groupId>
+	   <artifactId>javaee-api</artifactId>
+	</dependency>
+	
   </dependencies>
   
 </project>

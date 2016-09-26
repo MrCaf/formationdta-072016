@@ -13,8 +13,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.Transient;
 
 @Entity
+@NamedQuery(name="commande.findByNum", query="SELECT c FROM Commande c WHERE c.numCmd =:numC")
 public class Commande {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,14 +35,23 @@ public class Commande {
 							inverseJoinColumns=@JoinColumn(name="idPizza", referencedColumnName="id"))
 	private Set<Pizza> pizzas;
 	
+	@Transient
+	private static int NbCmd;
+	
 	public Commande(int id, int numCmd, Date dateCmd, StatutCommande statut, Client client, Livreur livreur) {
 		super();
+		NbCmd ++;
 		this.id = id;
-		this.numCmd = numCmd;
+		//this.numCmd = numCmd;
+		this.numCmd = NbCmd;
 		this.dateCmd = dateCmd;
 		this.statut = statut;
 		this.client = client;
 		this.livreur = livreur;
+	}
+	
+	public Commande() {
+		super();
 	}
 
 	public StatutCommande getStatut() {

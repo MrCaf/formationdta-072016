@@ -10,8 +10,8 @@ public enum CategoriePizza {
 	private CategoriePizza(String name) {
 		this.name = name;
 	}
-	/*
-	public String toString() {
+	
+	public String getName() {
 		return name;
-	}*/
+	}
 }

@@ -1,0 +1,112 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<title>Liste commandes</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    
+	var stockageListe;
+
+	function obtenirModal()
+	{
+		//recupère l'attribut 'data' de mon bouton
+		var idCommande = $(this).attr("data");
+		var maCommande;
+		//recupère la commande dans mon 'stockage local' grace à son numero
+		maCommande = stockageListe.find(function (uneCommande) {
+			return uneCommande.id == idCommande;
+		});
+		//JQuery
+		$("#ModalTitre").html("Commande : " + maCommande.numCmd);
+		$("#ModalInfoClt").html("<h5>Information Client</h5>" +
+			"\t<p>Nom :" + maCommande.client.nom + "</p>" +
+			"\t<p>Prénom :" + maCommande.client.prenom + "</p>" +
+			"\t<p>E-Mail :" + maCommande.client.email + "</p>");
+		var presentationPizza = "";
+		var prixFinal = 0;
+		maCommande.pizzas.forEach(function (element) {
+			prixFinal += element.prix;
+			presentationPizza += "<tr>"
+				+ "<td>" + element.code + "</td>"
+				+ "<td>" + element.nom + "</td>"
+				+ "<td>" + element.categorie + "</td>"
+				+ "<td>" + element.prix + "</td><td></td></tr>"
+
+		}, this);
+		var entete = "<legend>Liste de Pizzas :</legend><thead><tr><th>Code</th><th>Nom</th><th>Categorie</th><th>Prix</th></tr></thead>";
+		$("#ModalInfoCom").html("<h5>Information Commande</h5>" +
+			"<table height='50px' class='table-bordered' style='text-align: center'>" + entete + "<tbody>" + presentationPizza + "<tr><td colspan = '2'>Prix Total</td><td colspan = '2'>" + prixFinal + "€</td></tr></tbody></table>");
+		$('#myModal').modal();
+
+		//log du navigateur
+		console.log(maCommande);
+	}
+	
+	function test()
+    {
+        $.get('http://localhost:8080/pizzeria-admin-web/api/commandes', function(commandesTab){
+            stockageListe = commandesTab;
+			commandesTab.forEach(function(commande){
+				var d = new Date(commande.dateCmd);
+				$("#tabtab").append("<tr>");
+				$("#tabtab").append("<td>"+commande.numCmd+"</td>");
+				$("#tabtab").append("<td>"+d.toLocaleString()+"</td>");
+				$("#tabtab").append("<td>"+commande.client.prenom+" "+commande.client.nom+"</td>");
+				$("#tabtab").append("<td>"+commande.livreur.prenom+" "+commande.livreur.nom+"</td>");
+				$("#tabtab").append("<td><a href='#' class='btn btn-primary btnView' data='"+ commande.id +"'>Détails</a></td>");
+				$("#tabtab").append("</tr>");
+			});
+			$(".btnView").click(obtenirModal);
+        })
+       
+    };
+
+    test();
+
+</script>
+
+</head>
+<body>
+
+<h2>Liste des commandes</h2>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="myModal">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="ModalTitre">Modal title</h4>
+				</div>
+				<div class="modal-body">
+					<div id="ModalInfoClt"></div>
+					<div id="ModalInfoCom"></div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
+<div class="col-md-8">
+<table class="table table-hover">
+	<thead>
+		<td>Numéro Commande</td>
+		<td>Date</td>
+		<td>Client</td>
+		<td>Livreur</td>
+		<td></td>
+	</thead>
+	<tbody id="tabtab">
+	</tbody>
+</table>
+</div>
+
+</body>
+</html>

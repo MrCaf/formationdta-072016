@@ -31,17 +31,17 @@ public class StockagePizzaFichier implements Stockage<Pizza, String> {
 				try {
 					// pour chaque fichier, on parcourt les lignes
 					Files.lines(p).forEach(l -> {
-						// on découpe les lignes pour retrouver les informations et les enregistrer
+						// on dï¿½coupe les lignes pour retrouver les informations et les enregistrer
 						List<String> attr = Arrays.asList(l.split(";"));
 						String code = p.getFileName().toString().substring(0, 3);
 						pizzas.put(code, new Pizza(code, attr.get(0), Float.valueOf(attr.get(1)), CategoriePizza.valueOf(attr.get(2)), attr.get(3)));
 					});
 				} catch (IOException f) {
-					System.err.println("Import rejeté pour " + p.getFileName());
+					System.err.println("Import rejetï¿½ pour " + p.getFileName());
 				}
 			});
 		} catch (IOException e) {
-			System.err.println("Import rejeté");
+			System.err.println("Import rejetï¿½");
 		}
 		return pizzas.values();
 	}
@@ -55,15 +55,15 @@ public class StockagePizzaFichier implements Stockage<Pizza, String> {
 	public void save(Pizza newPizza) {
 		this.pizzas.put(newPizza.getCode(), newPizza);
 		// sauvegarder des pizzas dans des fichiers
-		// génération du chemin
+		// gï¿½nï¿½ration du chemin
 		Path cheminFichier = Paths.get("src","data",newPizza.getCode() + ".txt");
         try {
-        	// création et écriture dans le fichier
+        	// crï¿½ation et ï¿½criture dans le fichier
         	Files.deleteIfExists(cheminFichier);
         	Files.createFile(cheminFichier);
-			Files.write(cheminFichier, Arrays.asList(newPizza.getNom() + ";" + newPizza.getPrix() + ";" + newPizza.getCatPizza()));
+			Files.write(cheminFichier, Arrays.asList(newPizza.getNom() + ";" + newPizza.getPrix() + ";" + newPizza.getCategorie()));
 		} catch (IOException e) {
-			System.err.println("Export rejeté pour " + newPizza.getCode());
+			System.err.println("Export rejetï¿½ pour " + newPizza.getCode());
 		}
 	}
 
@@ -88,12 +88,12 @@ public class StockagePizzaFichier implements Stockage<Pizza, String> {
         	// suppression
         	Files.deleteIfExists(cheminFichier);
 		} catch (IOException e) {
-			System.err.println("Export rejeté pour " + ancienCode);
+			System.err.println("Export rejetï¿½ pour " + ancienCode);
 		}
 	}
 	
 	@Override
 	public void importPizza(List<Pizza> listImport) {
-		System.err.println("Veuillez configurer l’application avec une implémentation base de données !");
+		System.err.println("Veuillez configurer lï¿½application avec une implï¿½mentation base de donnï¿½es !");
 	}
 }

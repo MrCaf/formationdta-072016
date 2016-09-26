@@ -70,7 +70,7 @@ public class StockagePizzaBDD implements Stockage<Pizza, String> {
 			updatePizzaSt.setString(1, newPizza.getNom());
 			updatePizzaSt.setString(2, newPizza.getCode());
 			updatePizzaSt.setDouble(3, newPizza.getPrix());
-			updatePizzaSt.setString(4, newPizza.getCatPizza().toString());
+			updatePizzaSt.setString(4, newPizza.getCategorie().toString());
 			updatePizzaSt.executeUpdate();
 			pizzas.put(newPizza.getCode(), newPizza);
 		} catch (SQLException e) {
@@ -92,7 +92,7 @@ public class StockagePizzaBDD implements Stockage<Pizza, String> {
 			updatePizzaSt.setString(1, editPizza.getNom());
 			updatePizzaSt.setString(2, editPizza.getCode());
 			updatePizzaSt.setDouble(3, editPizza.getPrix());
-			updatePizzaSt.setString(4, editPizza.getCatPizza().toString());
+			updatePizzaSt.setString(4, editPizza.getCategorie().toString());
 			updatePizzaSt.setString(5, ancienCode);
 			updatePizzaSt.executeUpdate();
 			item.setCode(editPizza.getCode());
@@ -129,14 +129,14 @@ public class StockagePizzaBDD implements Stockage<Pizza, String> {
 					updatePizzaSt.setString(1, p.getNom());
 					updatePizzaSt.setString(2, p.getCode());
 					updatePizzaSt.setDouble(3, p.getPrix());
-					updatePizzaSt.setString(4, p.getCatPizza().toString());
+					updatePizzaSt.setString(4, p.getCategorie().toString());
 					updatePizzaSt.executeUpdate();
 
 				}
 				connection.commit();
 			} catch (SQLException e) {
 				connection.rollback();
-				System.err.println("Import annulé !");
+				System.err.println("Import annulï¿½ !");
 				throw new RuntimeException(e);
 			}
 

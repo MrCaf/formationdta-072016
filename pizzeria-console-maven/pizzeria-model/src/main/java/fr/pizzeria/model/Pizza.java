@@ -7,13 +7,11 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import org.apache.commons.lang3.StringUtils;
 
 @Entity
-@NamedQuery(name="pizza.findByCode", query="SELECT p FROM Pizza p WHERE p.code =:codeP")
 public class Pizza {
 
 	private static int NbPizza;
@@ -41,11 +39,11 @@ public class Pizza {
 		this.id = id;
 	}
 
-	public CategoriePizza getCatPizza() {
+	public CategoriePizza getCategorie() {
 		return categorie;
 	}
 
-	public void setCatPizza(CategoriePizza catPizza) {
+	public void setCategorie(CategoriePizza catPizza) {
 		this.categorie = catPizza;
 	}
 
@@ -91,7 +89,7 @@ public class Pizza {
 	}
 
 	public String toString() {
-		return StringUtils.rightPad(this.getCode(), 5)  + "\t" + StringUtils.rightPad(this.getNom(),16) + "\t\t" + this.getPrix() + " €\t" + this.getCatPizza().name();
+		return StringUtils.rightPad(this.getCode(), 5)  + "\t" + StringUtils.rightPad(this.getNom(),16) + "\t\t" + this.getPrix() + " ï¿½\t" + this.getCategorie().name();
 	}
 
 }
