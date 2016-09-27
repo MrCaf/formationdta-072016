@@ -1,6 +1,6 @@
 package dta.springmvc;
 
-import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,21 +8,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import dta.pizzeria.StockageSpringJdbc;
+import dta.repository.IPizzaRepository;
+import fr.pizzeria.model.Pizza;
 
 @Controller
 @RequestMapping("/pizzas")
 public class PizzaController {
 	
-	//@Autowired
-	//private StockageSpringJdbc pizzaStockage;
+	@Autowired
+	IPizzaRepository pizzaRepo;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
-	public String findAll(HttpServletResponse response) {
+	public List<Pizza> findAll() {
 		
-		//pizzaStockage.findAll();
-		return "ListePizzas";
+		List<Pizza> listeP = pizzaRepo.findAll();
+		return listeP;
 		
 	}
 
